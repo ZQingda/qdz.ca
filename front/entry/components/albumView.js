@@ -20,7 +20,9 @@ class AlbumView extends Component {
             delete: false,
             selected: [],
             backToList: false,
-            newTags: []
+            newTags: [],
+            albumid: '',
+            tagId: ''
         };
 
         this.getAlbum = this.getAlbum.bind(this);
@@ -38,8 +40,8 @@ class AlbumView extends Component {
     }
 
     getAlbum() {
-        if (this.props.location.state.albumid) {
-            var albumQuery = (this.props.location.state.albumid == 'all') ? {} : { albumid: this.props.location.state.albumid };
+        if (this.state.albumid) {
+            var albumQuery = (this.state.albumId == 'all') ? {} : { albumid: this.state.albumid };
             console.log(albumQuery);
             request.get('http://192.168.50.117:3001/album/get')
                 .query(albumQuery)
@@ -54,8 +56,8 @@ class AlbumView extends Component {
                     console.log('Tried getting');
                 });
         }
-        else if (this.props.location.state.tagId) {
-            var tagQuery = {tagId : this.props.location.state.tagId};
+        else if (this.state.tagId) {
+            var tagQuery = {tagId : this.state.tagId};
             request.get('http://192.168.50.117:3001/tag/getall')
                 .query(tagQuery)
                 .end((err, res) => {
@@ -117,7 +119,7 @@ class AlbumView extends Component {
         //console.log(this.state);
         e.preventDefault();
 
-        var albumid = this.props.location.state.albumid;
+        var albumid = this.state.albumid;
         var selected = this.state.selected;
 
         var deletionPackage = {
@@ -150,7 +152,7 @@ class AlbumView extends Component {
     }
 
     deleteAlbum() {
-        var albumid = this.props.location.state.albumid;
+        var albumid = this.state.albumid;
         console.log(albumid);
         request.post('http://192.168.50.117:3001/album/delete')
             .send({ albumid: albumid })
@@ -170,7 +172,7 @@ class AlbumView extends Component {
     addTags(e) {
         e.preventDefault();
 
-        var albumid = this.props.location.state.albumid;
+        var albumid = this.state.albumid;
         var newTags = this.state.newTags;
 
         request.post('http://192.168.50.117:3001/album/addtags')
@@ -187,7 +189,7 @@ class AlbumView extends Component {
     removeTag(e) {
         e.preventDefault();
 
-        var albumid = this.props.location.state.albumid;
+        var albumid = this.state.albumid;
 
         //console.log(e.target.dataset.tag);
         request.post('http://192.168.50.117:3001/album/removetag')
@@ -202,14 +204,26 @@ class AlbumView extends Component {
             });
     }
     componentDidMount() {
-        this.getAlbum();
+        this.setState({albumid : this.props.location.state.albumid, tagId : this.props.location.state.tagId},
+            () => {this.getAlbum();}
+        )
         console.log(this.props.location.state);
+    }
+    componentWillReceiveProps(newProps) {
+        console.log('WILL RECEIVE PROPS ');
+        console.log(this.props.location.state);
+        console.log(newProps.location.state);
+        this.setState({albumid : newProps.location.state.albumid, tagId : newProps.location.state.tagId},
+            () => {this.getAlbum();}
+        )
     }
 
     render() {
-        console.log(this.state.album);
-        console.log(this.state.images);
-        var albumid = this.props.location.state.albumid;
+        console.log('MOUNT STATE : ');
+        console.log(this.props.location.state);
+        //console.log(this.state.album);
+        //console.log(this.state.images);
+        var albumid = this.state.albumid;
         var images = this.state.album.images ? this.state.album.images : this.state.images ;
         
         var imagePresentation = images.map((image, index) => {

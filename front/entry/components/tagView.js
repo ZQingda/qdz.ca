@@ -17,8 +17,13 @@ class TagView extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.location.state);
-        var tagQuery = {tagId : this.props.location.state.tagId};
+        console.log(this.props.location);
+        var tagQuery = {};
+        console.log(this.props);
+        console.log(this.props.match.params);
+        if (this.props.location && this.props.location.state && this.props.location.state.tagId) tagQuery._id = this.props.location.state.tagId;
+        if (this.props.tagName) tagQuery.name = this.props.tagName; 
+        console.log(tagQuery);
         request.get('http://192.168.50.117:3001/tag/get')
             .query(tagQuery)
             .end((err, res) => {
@@ -37,7 +42,7 @@ class TagView extends Component {
     render() {
         var albumNav = this.state.tag.albums ? this.state.tag.albums.map((album) =>
             <li key={album._id}><Link to={{
-                pathname: `/albums/${album.name}`,
+                pathname: `/gallery/${this.props.tagName}/albums/${album.name}`,
                 state: {albumid: album._id}
             }}>{album.name}</Link></li>
         ): null;
@@ -45,7 +50,7 @@ class TagView extends Component {
             <div className='TagView'>
                 <ul>
                     <li><Link to={{
-                        pathname : `/tag/${this.state.tag.name}/all`, 
+                        pathname : `/gallery/${this.props.tagName}/all`, 
                         state : {tagId : this.state.tag._id
                         }}}>All images</Link></li>
                     {albumNav}

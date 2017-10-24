@@ -36,7 +36,9 @@ var tag_create = function (albumid, tags) {
             callback(null);
         },
         function (callback) {
+            console.log('ALBUMID: ');
             console.log(albumid);
+            console.log('=========');
             Tag.find(
                 { albums: albumid },
                 function (err, listTags) {
@@ -223,6 +225,7 @@ exports.album_add_tags = function (req, res, next) {
     console.log(req.body.albumid);
     console.log(req.body.newTags); */
     var newTagsArray = req.body.newTags.split(/\s*[\s,]\s*/);
+    console.log(req.body.newTags);
     var id = req.body.albumid;
     //console.log(newTagsArray);
 

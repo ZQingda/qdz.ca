@@ -33,4 +33,27 @@ class App extends Component {
   }
 }
 
-export default App;
+class Photos extends Component {
+  render() {
+    var root = this.props.location.pathname;
+    console.log(root);
+    console.log(this.props.match);
+    console.log(root + '/albums/Toronto');
+    return (
+      <div className='photoGallery'>
+        <Route path='/gallery/photography' render= {(props) => (
+          <TagView {...props} tagName = 'photography' />
+        )}/>
+        <Route path='/gallery/artwork' render= {(props) => (
+          <TagView {...props} tagName = 'artwork' />
+        )}/>
+        <Switch>
+          <Route path='/gallery/:category/albums/:albumname' component={AlbumView} />
+          <Route path='/gallery/:category/all' component={AlbumView} />
+        </Switch>
+      </div>
+    )
+  }
+}
+
+export { App, Photos };

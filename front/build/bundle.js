@@ -9357,18 +9357,15 @@
 
 	var _App = __webpack_require__(553);
 
-	var _App2 = _interopRequireDefault(_App);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log('index.js!');
-	//import './index.css';
-
+	//console.log('index.js!');
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRouterDom.BrowserRouter,
 	    null,
-	    _react2.default.createElement(_App2.default, null)
-	), document.getElementById('root'));
+	    _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category', component: _App.Photos })
+	), document.getElementById('gallery'));
+	//import './index.css';
 
 /***/ }),
 /* 328 */
@@ -35297,6 +35294,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.Photos = exports.App = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -35396,7 +35396,46 @@
 	  return App;
 	}(_react.Component);
 
-	exports.default = App;
+	var Photos = function (_Component2) {
+	  _inherits(Photos, _Component2);
+
+	  function Photos() {
+	    _classCallCheck(this, Photos);
+
+	    return _possibleConstructorReturn(this, (Photos.__proto__ || Object.getPrototypeOf(Photos)).apply(this, arguments));
+	  }
+
+	  _createClass(Photos, [{
+	    key: 'render',
+	    value: function render() {
+	      var root = this.props.location.pathname;
+	      console.log(root);
+	      console.log(this.props.match);
+	      console.log(root + '/albums/Toronto');
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'photoGallery' },
+	        _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/photography', render: function render(props) {
+	            return _react2.default.createElement(_tagView2.default, _extends({}, props, { tagName: 'photography' }));
+	          } }),
+	        _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/artwork', render: function render(props) {
+	            return _react2.default.createElement(_tagView2.default, _extends({}, props, { tagName: 'artwork' }));
+	          } }),
+	        _react2.default.createElement(
+	          _reactRouterDom.Switch,
+	          null,
+	          _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category/albums/:albumname', component: _albumView2.default }),
+	          _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category/all', component: _albumView2.default })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Photos;
+	}(_react.Component);
+
+	exports.App = App;
+	exports.Photos = Photos;
 
 /***/ }),
 /* 554 */
@@ -35522,7 +35561,11 @@
 	                    { onSubmit: this._handleImageUpload, name: 'image', encType: 'multipart/form-data', id: 'TestForm' },
 	                    'Select image to upload:',
 	                    _react2.default.createElement('input', { type: 'file', name: 'photo', id: 'imageFile', accept: 'image/*' }),
-	                    _react2.default.createElement('input', { type: 'submit', value: 'Upload Image', name: 'submit' })
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'submit', value: 'Upload Image', name: 'submit' },
+	                        'Upload image'
+	                    )
 	                )
 	            );
 	        }
@@ -38809,7 +38852,9 @@
 	            delete: false,
 	            selected: [],
 	            backToList: false,
-	            newTags: []
+	            newTags: [],
+	            albumid: '',
+	            tagId: ''
 	        };
 
 	        _this.getAlbum = _this.getAlbum.bind(_this);
@@ -38832,8 +38877,8 @@
 	        value: function getAlbum() {
 	            var _this2 = this;
 
-	            if (this.props.location.state.albumid) {
-	                var albumQuery = this.props.location.state.albumid == 'all' ? {} : { albumid: this.props.location.state.albumid };
+	            if (this.state.albumid) {
+	                var albumQuery = this.state.albumId == 'all' ? {} : { albumid: this.state.albumid };
 	                console.log(albumQuery);
 	                _superagent2.default.get('http://192.168.50.117:3001/album/get').query(albumQuery).end(function (err, res) {
 	                    if (err) {
@@ -38847,8 +38892,8 @@
 	                    });
 	                    console.log('Tried getting');
 	                });
-	            } else if (this.props.location.state.tagId) {
-	                var tagQuery = { tagId: this.props.location.state.tagId };
+	            } else if (this.state.tagId) {
+	                var tagQuery = { tagId: this.state.tagId };
 	                _superagent2.default.get('http://192.168.50.117:3001/tag/getall').query(tagQuery).end(function (err, res) {
 	                    console.log('ALBUM VIEW RES : ');
 	                    console.log(res.body);
@@ -38920,7 +38965,7 @@
 	            //console.log(this.state);
 	            e.preventDefault();
 
-	            var albumid = this.props.location.state.albumid;
+	            var albumid = this.state.albumid;
 	            var selected = this.state.selected;
 
 	            var deletionPackage = {
@@ -38955,7 +39000,7 @@
 	    }, {
 	        key: 'deleteAlbum',
 	        value: function deleteAlbum() {
-	            var albumid = this.props.location.state.albumid;
+	            var albumid = this.state.albumid;
 	            console.log(albumid);
 	            _superagent2.default.post('http://192.168.50.117:3001/album/delete').send({ albumid: albumid }).end(function (err) {
 	                if (err) {
@@ -38979,7 +39024,7 @@
 
 	            e.preventDefault();
 
-	            var albumid = this.props.location.state.albumid;
+	            var albumid = this.state.albumid;
 	            var newTags = this.state.newTags;
 
 	            _superagent2.default.post('http://192.168.50.117:3001/album/addtags').send({
@@ -38999,7 +39044,7 @@
 
 	            e.preventDefault();
 
-	            var albumid = this.props.location.state.albumid;
+	            var albumid = this.state.albumid;
 
 	            //console.log(e.target.dataset.tag);
 	            _superagent2.default.post('http://192.168.50.117:3001/album/removetag').send({
@@ -39016,17 +39061,35 @@
 	    }, {
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.getAlbum();
+	            var _this5 = this;
+
+	            this.setState({ albumid: this.props.location.state.albumid, tagId: this.props.location.state.tagId }, function () {
+	                _this5.getAlbum();
+	            });
 	            console.log(this.props.location.state);
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(newProps) {
+	            var _this6 = this;
+
+	            console.log('WILL RECEIVE PROPS ');
+	            console.log(this.props.location.state);
+	            console.log(newProps.location.state);
+	            this.setState({ albumid: newProps.location.state.albumid, tagId: newProps.location.state.tagId }, function () {
+	                _this6.getAlbum();
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this5 = this;
+	            var _this7 = this;
 
-	            console.log(this.state.album);
-	            console.log(this.state.images);
-	            var albumid = this.props.location.state.albumid;
+	            console.log('MOUNT STATE : ');
+	            console.log(this.props.location.state);
+	            //console.log(this.state.album);
+	            //console.log(this.state.images);
+	            var albumid = this.state.albumid;
 	            var images = this.state.album.images ? this.state.album.images : this.state.images;
 
 	            var imagePresentation = images.map(function (image, index) {
@@ -39034,7 +39097,7 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'imgWrap', key: index },
-	                    _react2.default.createElement('img', { src: link, alt: 'cannot find', onClick: _this5.state.delete ? _this5.select : _this5.showImage, 'data-key': index }),
+	                    _react2.default.createElement('img', { src: link, alt: 'cannot find', onClick: _this7.state.delete ? _this7.select : _this7.showImage, 'data-key': index }),
 	                    _react2.default.createElement(_imageEdit2.default, { imageId: image._id })
 	                );
 	            });
@@ -39521,8 +39584,13 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            console.log(this.props.location.state);
-	            var tagQuery = { tagId: this.props.location.state.tagId };
+	            console.log(this.props.location);
+	            var tagQuery = {};
+	            console.log(this.props);
+	            console.log(this.props.match.params);
+	            if (this.props.location && this.props.location.state && this.props.location.state.tagId) tagQuery._id = this.props.location.state.tagId;
+	            if (this.props.tagName) tagQuery.name = this.props.tagName;
+	            console.log(tagQuery);
 	            _superagent2.default.get('http://192.168.50.117:3001/tag/get').query(tagQuery).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
@@ -39538,6 +39606,8 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
+
 	            var albumNav = this.state.tag.albums ? this.state.tag.albums.map(function (album) {
 	                return _react2.default.createElement(
 	                    'li',
@@ -39545,7 +39615,7 @@
 	                    _react2.default.createElement(
 	                        _reactRouterDom.Link,
 	                        { to: {
-	                                pathname: '/albums/' + album.name,
+	                                pathname: '/gallery/' + _this3.props.tagName + '/albums/' + album.name,
 	                                state: { albumid: album._id }
 	                            } },
 	                        album.name
@@ -39564,7 +39634,7 @@
 	                        _react2.default.createElement(
 	                            _reactRouterDom.Link,
 	                            { to: {
-	                                    pathname: '/tag/' + this.state.tag.name + '/all',
+	                                    pathname: '/gallery/' + this.props.tagName + '/all',
 	                                    state: { tagId: this.state.tag._id
 	                                    } } },
 	                            'All images'

@@ -35,13 +35,23 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'front')));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/front/index.html')
+  res.sendFile(__dirname + '/front/main.html')
 });
+app.get('/gallery/photography', function(req, res) {
+  res.sendFile(__dirname + '/front/gallery.html')
+});
+app.get('/gallery/artwork', function(req, res) {
+  res.sendFile(__dirname + '/front/gallery.html')
+});
+
+app.use(express.static(path.join(__dirname, 'front'), {
+  extensions: ['html', 'htm']
+}));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/users', users);
 app.use('/image', image);
 app.use('/album', album);

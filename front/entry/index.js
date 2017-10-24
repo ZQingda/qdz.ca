@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 //import './index.css';
-import App from './App';
+import { App, Photos } from './App';
 
-console.log('index.js!');
+//console.log('index.js!');
 ReactDOM.render((
     <BrowserRouter>
-        <App />
+        <Route path='/gallery/:category' component={Photos}/>
+        {/* <App /> */}
     </BrowserRouter>
-), document.getElementById('root'));
+), document.getElementById('gallery'));

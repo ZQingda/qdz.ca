@@ -19,7 +19,8 @@ exports.tag_list = function (req, res, next) {
 }
 
 exports.tag_get = function (req, res, next) {
-    Tag.findById(req.query.tagId)
+    console.log(req.query);
+    Tag.findOne(req.query)
         .populate('albums')
         .exec(function (err, tag) {
             if (err) {
