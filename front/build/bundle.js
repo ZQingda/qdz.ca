@@ -35420,13 +35420,7 @@
 	          } }),
 	        _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/artwork', render: function render(props) {
 	            return _react2.default.createElement(_tagView2.default, _extends({}, props, { tagName: 'artwork' }));
-	          } }),
-	        _react2.default.createElement(
-	          _reactRouterDom.Switch,
-	          null,
-	          _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category/albums/:albumname', component: _albumView2.default }),
-	          _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category/all', component: _albumView2.default })
-	        )
+	          } })
 	      );
 	    }
 	  }]);
@@ -39063,10 +39057,14 @@
 	        value: function componentDidMount() {
 	            var _this5 = this;
 
-	            this.setState({ albumid: this.props.location.state.albumid, tagId: this.props.location.state.tagId }, function () {
+	            console.log(this.props);
+	            this.setState({
+	                albumid: this.props && this.props.location.state && this.props.location.state.albumid ? this.props.location.state.albumid : undefined,
+	                tagId: this.props.tagId ? this.props.tagId : this.props && this.props.location.state && this.props.location.state.tagId ? this.props.location.state.tagId : undefined
+	            }, function () {
 	                _this5.getAlbum();
 	            });
-	            console.log(this.props.location.state);
+	            //console.log(this.props.location.state);
 	        }
 	    }, {
 	        key: 'componentWillReceiveProps',
@@ -39074,9 +39072,12 @@
 	            var _this6 = this;
 
 	            console.log('WILL RECEIVE PROPS ');
-	            console.log(this.props.location.state);
-	            console.log(newProps.location.state);
-	            this.setState({ albumid: newProps.location.state.albumid, tagId: newProps.location.state.tagId }, function () {
+	            console.log(this.props);
+	            console.log(newProps);
+	            this.setState({
+	                albumid: newProps.location.state && newProps.location.state.albumid ? newProps.location.state.albumid : undefined,
+	                tagId: newProps.tagId ? newProps.tagId : newProps.location.state && newProps.location.state.tagId ? newProps.location.state.tagId : undefined
+	            }, function () {
 	                _this6.getAlbum();
 	            });
 	        }
@@ -39090,6 +39091,7 @@
 	            //console.log(this.state.album);
 	            //console.log(this.state.images);
 	            var albumid = this.state.albumid;
+	            var tagId = this.state.tagId;
 	            var images = this.state.album.images ? this.state.album.images : this.state.images;
 
 	            var imagePresentation = images.map(function (image, index) {
@@ -39117,7 +39119,7 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'ABCD' },
-	                    !this.props.location.state.tagId && _react2.default.createElement(_albumMenu2.default, {
+	                    false && !this.state.tagId && _react2.default.createElement(_albumMenu2.default, {
 	                        albumid: albumid,
 	                        getAlbum: this.getAlbum,
 	                        deleteAlbum: this.deleteAlbum,
@@ -39541,6 +39543,8 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(328);
@@ -39552,6 +39556,10 @@
 	var _superagent2 = _interopRequireDefault(_superagent);
 
 	var _reactRouterDom = __webpack_require__(513);
+
+	var _albumView = __webpack_require__(565);
+
+	var _albumView2 = _interopRequireDefault(_albumView);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39608,6 +39616,8 @@
 	        value: function render() {
 	            var _this3 = this;
 
+	            console.log('TAGVIEW PROPS : ');
+	            console.log(this.props);
 	            var albumNav = this.state.tag.albums ? this.state.tag.albums.map(function (album) {
 	                return _react2.default.createElement(
 	                    'li',
@@ -39634,13 +39644,23 @@
 	                        _react2.default.createElement(
 	                            _reactRouterDom.Link,
 	                            { to: {
-	                                    pathname: '/gallery/' + this.props.tagName + '/all',
-	                                    state: { tagId: this.state.tag._id
-	                                    } } },
+	                                    pathname: '/gallery/' + this.props.tagName,
+	                                    state: {
+	                                        tagId: this.state.tag._id
+	                                    }
+	                                } },
 	                            'All images'
 	                        )
 	                    ),
 	                    albumNav
+	                ),
+	                _react2.default.createElement(
+	                    _reactRouterDom.Switch,
+	                    null,
+	                    _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category/albums/:albumname', component: _albumView2.default }),
+	                    _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category', render: function render(props) {
+	                            return _react2.default.createElement(_albumView2.default, _extends({}, props, { tagId: _this3.state.tag._id }));
+	                        } })
 	                )
 	            );
 	        }

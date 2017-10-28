@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import { Switch, Route, Link } from 'react-router-dom';
 
+import AlbumView from './albumView'
+
+
 
 class TagView extends Component {
 
@@ -22,7 +25,7 @@ class TagView extends Component {
         console.log(this.props);
         console.log(this.props.match.params);
         if (this.props.location && this.props.location.state && this.props.location.state.tagId) tagQuery._id = this.props.location.state.tagId;
-        if (this.props.tagName) tagQuery.name = this.props.tagName; 
+        if (this.props.tagName) tagQuery.name = this.props.tagName;
         console.log(tagQuery);
         request.get('http://192.168.50.117:3001/tag/get')
             .query(tagQuery)
@@ -40,21 +43,31 @@ class TagView extends Component {
     }
 
     render() {
+        console.log('TAGVIEW PROPS : ');
+        console.log(this.props);
         var albumNav = this.state.tag.albums ? this.state.tag.albums.map((album) =>
             <li key={album._id}><Link to={{
                 pathname: `/gallery/${this.props.tagName}/albums/${album.name}`,
-                state: {albumid: album._id}
+                state: { albumid: album._id }
             }}>{album.name}</Link></li>
-        ): null;
+        ) : null;
         return (
             <div className='TagView'>
                 <ul>
                     <li><Link to={{
-                        pathname : `/gallery/${this.props.tagName}/all`, 
-                        state : {tagId : this.state.tag._id
-                        }}}>All images</Link></li>
+                        pathname: `/gallery/${this.props.tagName}`,
+                        state: {
+                            tagId: this.state.tag._id
+                        }
+                    }}>All images</Link></li>
                     {albumNav}
                 </ul>
+                <Switch>
+                    <Route path='/gallery/:category/albums/:albumname' component={AlbumView} />
+                    <Route path='/gallery/:category' render={(props) => (
+                        <AlbumView {...props} tagId={this.state.tag._id} />
+                    )} />
+                </Switch>
             </div>
         );
     }

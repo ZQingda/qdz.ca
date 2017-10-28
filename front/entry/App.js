@@ -47,10 +47,10 @@ class Photos extends Component {
         <Route path='/gallery/artwork' render= {(props) => (
           <TagView {...props} tagName = 'artwork' />
         )}/>
-        <Switch>
+        {/* <Switch>
           <Route path='/gallery/:category/albums/:albumname' component={AlbumView} />
           <Route path='/gallery/:category/all' component={AlbumView} />
-        </Switch>
+        </Switch> */}
       </div>
     )
   }

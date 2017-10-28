@@ -11,7 +11,13 @@
     width: 300px;
     padding: 0;
     margin: 0;
-    background-color: #fafafa; 
+    background-color: #333333;
+}
+.sidebarCover {
+    z-index: 2;
+    position: absolute;
+    height: 100%;
+    width: 300px;
 }
 .logo-home {
     display: block;
@@ -177,11 +183,74 @@
 .nav-link:visited,
 .icon-link,
 .icon-link:visited {
-    color: #777777;
+    color: #888888;
 }
 .nav-link:hover,
 .nav-link:active,
 .icon-link:hover,
 .icon-link:active {
-    color: #333333;
+    color: #bababa;
+}
+
+/* animations */
+
+.sidebar-close {
+    animation-name: slideCloseMenu;
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;
+}
+.sidebar-open {
+    animation-name: slideOpenMenu;
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes slideCloseMenu {
+    0% {
+        left: 0px;
+    }
+    100% {
+        left: -300px;
+    }
+}
+@keyframes slideOpenMenu {
+    0% {
+        left:-300px;
+    }
+    75% {
+        left: 0px;
+    }
+}
+@keyframes lighten {
+    0% { 
+        left: 0px;
+    }
+    50% {
+        left: -300px;
+    }
+    51% {
+        left: -300px;
+        background-color: #fafafa;
+    }
+    100% {
+        left : 0px;
+        background-color: #fafafa;
+    }
+}
+@keyframes darken {
+    0% { 
+        left: 0px;
+    }
+    50% {
+        left: -300px;
+    }
+    51% {
+        left: -300px;
+        background-color: #333333;
+    }
+    100% {
+        left : 0px;
+        background-color: #333333;
+    }
 }

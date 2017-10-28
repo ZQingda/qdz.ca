@@ -204,16 +204,23 @@ class AlbumView extends Component {
             });
     }
     componentDidMount() {
-        this.setState({albumid : this.props.location.state.albumid, tagId : this.props.location.state.tagId},
+        console.log(this.props);
+        this.setState({
+            albumid : (this.props && this.props.location.state && this.props.location.state.albumid) ? this.props.location.state.albumid : undefined, 
+            tagId : this.props.tagId ? this.props.tagId : (this.props && this.props.location.state && this.props.location.state.tagId) ? this.props.location.state.tagId : undefined
+        },
             () => {this.getAlbum();}
         )
-        console.log(this.props.location.state);
+        //console.log(this.props.location.state);
     }
     componentWillReceiveProps(newProps) {
         console.log('WILL RECEIVE PROPS ');
-        console.log(this.props.location.state);
-        console.log(newProps.location.state);
-        this.setState({albumid : newProps.location.state.albumid, tagId : newProps.location.state.tagId},
+        console.log(this.props);
+        console.log(newProps);
+        this.setState({
+            albumid : (newProps.location.state && newProps.location.state.albumid) ? newProps.location.state.albumid : undefined, 
+            tagId : newProps.tagId ? newProps.tagId : (newProps.location.state && newProps.location.state.tagId) ? newProps.location.state.tagId : undefined
+        },
             () => {this.getAlbum();}
         )
     }
@@ -224,6 +231,7 @@ class AlbumView extends Component {
         //console.log(this.state.album);
         //console.log(this.state.images);
         var albumid = this.state.albumid;
+        var tagId = this.state.tagId;
         var images = this.state.album.images ? this.state.album.images : this.state.images ;
         
         var imagePresentation = images.map((image, index) => {
@@ -251,7 +259,7 @@ class AlbumView extends Component {
             return (
                 <div className='ABCD'>
                     
-                    {!this.props.location.state.tagId &&
+                    {false && !this.state.tagId &&
                     <AlbumMenu 
                         albumid={albumid}
                         getAlbum={this.getAlbum}
