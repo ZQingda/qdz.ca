@@ -51,7 +51,8 @@ class AlbumView extends Component {
                     console.log(res.body);
                     this.setState({
                         images: res.body.album.images ? res.body.album.images : res.body.images,
-                        album: res.body.album ? res.body.album : null
+                        album: res.body.album ? res.body.album : null,
+                        tagName: null
                     });
                     console.log('Tried getting');
                 });
@@ -66,6 +67,7 @@ class AlbumView extends Component {
                     if (err) { console.log('HANDLE TAG ALL ERR : ' + err); }
                     this.setState({
                         images: res.body.images,
+                        tagName: res.body.name,
                         album: null
                     })
                 });
@@ -274,6 +276,7 @@ class AlbumView extends Component {
                         removeTag={this.removeTag}
                         />
                     }
+                    <div className='album-title'>{this.state.tagName ? this.state.tagName : this.state.album.name ? this.state.album.name : ''}</div>
 
                     {imagePresentation}
 

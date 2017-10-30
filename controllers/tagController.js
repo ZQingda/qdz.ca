@@ -53,7 +53,7 @@ exports.tag_get_images = function (req, res, next) {
             }, []);
 
             res.setHeader('Content-Type', 'application/json');
-            res.send({images : allImages});
+            res.send({images : allImages, name : tag.name});
 
         })
 

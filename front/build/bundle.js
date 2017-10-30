@@ -38882,7 +38882,8 @@
 	                    console.log(res.body);
 	                    _this2.setState({
 	                        images: res.body.album.images ? res.body.album.images : res.body.images,
-	                        album: res.body.album ? res.body.album : null
+	                        album: res.body.album ? res.body.album : null,
+	                        tagName: null
 	                    });
 	                    console.log('Tried getting');
 	                });
@@ -38896,6 +38897,7 @@
 	                    }
 	                    _this2.setState({
 	                        images: res.body.images,
+	                        tagName: res.body.name,
 	                        album: null
 	                    });
 	                });
@@ -39131,6 +39133,11 @@
 	                        tags: this.state.album.tags ? this.state.album.tags : undefined,
 	                        removeTag: this.removeTag
 	                    }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'album-title' },
+	                        this.state.tagName ? this.state.tagName : this.state.album.name ? this.state.album.name : ''
+	                    ),
 	                    imagePresentation,
 	                    _react2.default.createElement(_lightbox2.default, {
 	                        imageCount: this.state.images.length,
