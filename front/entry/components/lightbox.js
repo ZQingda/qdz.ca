@@ -6,12 +6,16 @@ class Lightbox extends Component {
     }
 
     render() {
+        var prev = '<';
+        var next = '>';
         return (
             <div className={this.props.show ? 'lightbox show' : 'lightbox'}>
-                <button onClick={this.props.hideImage}>Close</button>
-                {this.props.currentIndex != 0 && <button onClick={this.props.prevImage}>Prev</button>}
-                {this.props.currentIndex != this.props.imageCount - 1 && <button onClick={this.props.nextImage}>Next</button>}
+                {this.props.currentIndex != 0 && 
+                    <div className='prevButton' onClick={this.props.prevImage}><p>{prev}</p></div>}
                 <img src={this.props.path} alt=''></img>
+                <div className='closeButton' onClick={this.props.hideImage}><p>X</p></div>
+                {this.props.currentIndex != this.props.imageCount - 1 && 
+                    <div className='nextButton' onClick={this.props.nextImage}><p>{next}</p></div>}
             </div>
         );
     }

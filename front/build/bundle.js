@@ -38895,7 +38895,8 @@
 	                        console.log('HANDLE TAG ALL ERR : ' + err);
 	                    }
 	                    _this2.setState({
-	                        images: res.body.images
+	                        images: res.body.images,
+	                        album: null
 	                    });
 	                });
 	            }
@@ -39092,15 +39093,14 @@
 	            //console.log(this.state.images);
 	            var albumid = this.state.albumid;
 	            var tagId = this.state.tagId;
-	            var images = this.state.album.images ? this.state.album.images : this.state.images;
+	            var images = this.state.album && this.state.album.images ? this.state.album.images : this.state.images;
 
 	            var imagePresentation = images.map(function (image, index) {
 	                var link = image.path.substr(6);
 	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'imgWrap', key: index },
-	                    _react2.default.createElement('img', { src: link, alt: 'cannot find', onClick: _this7.state.delete ? _this7.select : _this7.showImage, 'data-key': index }),
-	                    _react2.default.createElement(_imageEdit2.default, { imageId: image._id })
+	                    { className: 'album-image', key: index },
+	                    _react2.default.createElement('img', { src: link, alt: 'cannot find', onClick: _this7.state.delete ? _this7.select : _this7.showImage, 'data-key': index })
 	                );
 	            });
 
@@ -39118,7 +39118,7 @@
 	            } else {
 	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'ABCD' },
+	                    { className: 'album-view album-view-in', id: 'album-view' },
 	                    false && !this.state.tagId && _react2.default.createElement(_albumMenu2.default, {
 	                        albumid: albumid,
 	                        getAlbum: this.getAlbum,
@@ -39187,25 +39187,39 @@
 	    _createClass(Lightbox, [{
 	        key: 'render',
 	        value: function render() {
+	            var prev = '<';
+	            var next = '>';
 	            return _react2.default.createElement(
 	                'div',
 	                { className: this.props.show ? 'lightbox show' : 'lightbox' },
-	                _react2.default.createElement(
-	                    'button',
-	                    { onClick: this.props.hideImage },
-	                    'Close'
-	                ),
 	                this.props.currentIndex != 0 && _react2.default.createElement(
-	                    'button',
-	                    { onClick: this.props.prevImage },
-	                    'Prev'
+	                    'div',
+	                    { className: 'prevButton', onClick: this.props.prevImage },
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        prev
+	                    )
+	                ),
+	                _react2.default.createElement('img', { src: this.props.path, alt: '' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'closeButton', onClick: this.props.hideImage },
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'X'
+	                    )
 	                ),
 	                this.props.currentIndex != this.props.imageCount - 1 && _react2.default.createElement(
-	                    'button',
-	                    { onClick: this.props.nextImage },
-	                    'Next'
-	                ),
-	                _react2.default.createElement('img', { src: this.props.path, alt: '' })
+	                    'div',
+	                    { className: 'nextButton', onClick: this.props.nextImage },
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        next
+	                    )
+	                )
 	            );
 	        }
 	    }]);
@@ -39621,38 +39635,42 @@
 	            var albumNav = this.state.tag.albums ? this.state.tag.albums.map(function (album) {
 	                return _react2.default.createElement(
 	                    'li',
-	                    { key: album._id },
+	                    { className: 'tag-album', key: album._id },
 	                    _react2.default.createElement(
 	                        _reactRouterDom.Link,
 	                        { to: {
 	                                pathname: '/gallery/' + _this3.props.tagName + '/albums/' + album.name,
 	                                state: { albumid: album._id }
 	                            } },
-	                        album.name
+	                        album.name.toLowerCase()
 	                    )
 	                );
 	            }) : null;
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'TagView' },
+	                { className: 'tag-view tag-view-in', id: 'tag-view' },
 	                _react2.default.createElement(
-	                    'ul',
-	                    null,
+	                    'div',
+	                    { className: 'tag-list-wrap' },
 	                    _react2.default.createElement(
-	                        'li',
-	                        null,
+	                        'ul',
+	                        { className: 'tag-list' },
 	                        _react2.default.createElement(
-	                            _reactRouterDom.Link,
-	                            { to: {
-	                                    pathname: '/gallery/' + this.props.tagName,
-	                                    state: {
-	                                        tagId: this.state.tag._id
-	                                    }
-	                                } },
-	                            'All images'
-	                        )
-	                    ),
-	                    albumNav
+	                            'li',
+	                            { className: 'tag-album' },
+	                            _react2.default.createElement(
+	                                _reactRouterDom.Link,
+	                                { to: {
+	                                        pathname: '/gallery/' + this.props.tagName,
+	                                        state: {
+	                                            tagId: this.state.tag._id
+	                                        }
+	                                    } },
+	                                'all images'
+	                            )
+	                        ),
+	                        albumNav
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    _reactRouterDom.Switch,

@@ -1,0 +1,136 @@
+.tag-view {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+
+    background-color: #5F6063;
+    box-shadow: 25px 0px 37px 20px rgba(17, 17, 17, 0.54);
+
+    z-index: 1;
+}
+
+.tag-list-wrap {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    width: 300px;
+    background-color: #5F6063;
+
+    
+}
+.tag-list {
+    box-sizing: border-box;
+    position: relative;
+    width: 300px;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-size: 1em;
+    letter-spacing: 3px;
+    text-align: center;
+
+}
+.tag-album > a {
+    height: 60px;
+    line-height: 60px;
+}
+/* nav link adjustments */
+.tag-album > a {
+    transition-duration: 80ms;
+}
+.tag-album > a,
+.tag-album > a:visited {
+    color: #bababa;
+}
+.tag-album > a:hover,
+.tag-album > a:active {
+    color: #fefefe;
+}
+.album-view {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    height: 100vh;
+    width: calc(100% - 300px);
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-size: 0;
+
+    background-color: #F3F5F7;
+
+    box-shadow: 25px 0px 77px 10px rgba(92, 92, 92, 0.7);
+
+    z-index: 2;
+}
+.album-image {
+    position: relative;
+    display: block;
+    width: 450px;
+    margin-left: 200px;
+}
+.album-image:hover {
+    cursor: pointer;
+}
+.album-image > img {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 50px;
+}
+.album-image:first-child {
+    margin-top: 200px;
+}
+
+/* animations */
+.album-view-in {
+    animation-name: slideInSecond;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
+}
+.album-view-out {
+    animation-name: slideOutFirst;
+    animation-fill-mode: forwards;
+    animation-duration: 200ms;
+}
+.tag-view-in {
+    animation-name: slideInFirst;
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+}
+.tag-view-out {
+    animation-name: slideOutSecond;
+    animation-fill-mode: forwards;
+    animation-duration: 400ms;
+}
+@keyframes slideInFirst {
+    0% {right: -100%;}
+    100% {right: 0;}
+}
+@keyframes slideInSecond {
+    0% {right: -100%;}
+    20% {right: -100%;}
+    100% {right: 0;}
+}
+@keyframes slideOutFirst {
+    0% {
+        right: 0px;
+    }
+    100% {
+        right: -100%;
+    }
+}
+@keyframes slideOutSecond {
+    0% {
+        right: 0px;
+    }
+    20% {
+        right: 0px;
+    }
+    100% {
+        right: -100%;
+    }
+}

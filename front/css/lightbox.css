@@ -1,0 +1,72 @@
+.lightbox {
+    visibility: hidden;
+    position: fixed;
+    opacity: 0;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,1);
+  
+    transition: visibility 250ms linear, opacity 250ms linear;
+}
+  
+.lightbox.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.lightbox > img {
+    position: relative;
+    display: block;
+    max-height: 100%;
+    /* width: calc(100% - 200px); */
+    margin: auto;
+}
+
+.prevButton,
+.nextButton,
+.closeButton {
+    position: absolute;
+    display: block;
+    width: 100px;
+
+    color: white;
+    background-color: black;
+
+    font-size: 34px;
+    font-family: 'Old Standard TT', sans-serif;
+    text-align: center;
+}
+.prevButton:hover,
+.nextButton:hover,
+.closeButton:hover {
+    cursor: pointer;
+}
+.prevButton {
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+}
+.closeButton {
+    height: 100px;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+}
+.nextButton {
+    height: 100vh;
+    right: 0px;
+    top: 0px;
+}
+.prevButton>p,
+.nextButton>p,
+.closeButton>p {
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+}

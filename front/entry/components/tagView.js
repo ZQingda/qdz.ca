@@ -46,22 +46,24 @@ class TagView extends Component {
         console.log('TAGVIEW PROPS : ');
         console.log(this.props);
         var albumNav = this.state.tag.albums ? this.state.tag.albums.map((album) =>
-            <li key={album._id}><Link to={{
+            <li className='tag-album' key={album._id}><Link to={{
                 pathname: `/gallery/${this.props.tagName}/albums/${album.name}`,
                 state: { albumid: album._id }
-            }}>{album.name}</Link></li>
+            }}>{album.name.toLowerCase()}</Link></li>
         ) : null;
         return (
-            <div className='TagView'>
-                <ul>
-                    <li><Link to={{
-                        pathname: `/gallery/${this.props.tagName}`,
-                        state: {
-                            tagId: this.state.tag._id
-                        }
-                    }}>All images</Link></li>
-                    {albumNav}
-                </ul>
+            <div className='tag-view tag-view-in' id='tag-view'>
+                <div className='tag-list-wrap'>
+                    <ul className='tag-list'>
+                        <li className='tag-album'><Link to={{
+                            pathname: `/gallery/${this.props.tagName}`,
+                            state: {
+                                tagId: this.state.tag._id
+                            }
+                        }}>all images</Link></li>
+                        {albumNav}
+                    </ul>
+                </div>
                 <Switch>
                     <Route path='/gallery/:category/albums/:albumname' component={AlbumView} />
                     <Route path='/gallery/:category' render={(props) => (

@@ -1,0 +1,142 @@
+.catalog {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+
+    background-color: #FEFEFE;
+    box-shadow: 25px 0px 37px 20px rgba(17, 17, 17, 0.54);
+
+    overflow-y: scroll;
+
+    z-index: 1;
+}
+
+.code-title {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 180px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #e7e7e7;
+}
+.code-title > span {
+    position: absolute;
+    display: inline-block;
+    bottom: 40px;
+    left: 145px;
+
+    height: 84px;
+    line-height: 84px;
+
+    color: #2a2a2a;
+    font-size: 84px;
+    font-family: 'Old Standard TT', sans-serif;
+    font-weight: 400;
+
+}
+
+.code-wrap {
+    position: relative;
+    display: block;
+    width: calc(100%);
+    height: calc(100vh - 200px);
+
+}
+
+.code-article {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 280px;
+
+    color: #191919;
+
+    background-size: 210% 100%;
+    background-position-x: 99%;
+    background-image: linear-gradient(to right, #191919 50%, #FEFEFE 50%);
+    transition: all ease-in-out 120ms;
+
+    border-bottom: 1px solid #e7e7e7;
+    border-width: 1px 0;
+}
+.code-article:hover {
+    background-position: 1%;
+    color: #FEFEFE;
+}
+.code-text {
+    position: relative;
+    float: left;
+
+    max-width: 800px;
+    width: calc(100% - 420px);
+    height: 100%;
+    padding-left: 150px;
+
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 26px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.code-text > p:nth-child(1) {
+    font-family: 'Raleway', sans-serif;
+}
+.code-text > p:nth-child(-n+9) {
+    padding: 35px 0 0 0;
+}
+.code-text > p:nth-child(n+3) {
+    display: none;
+}
+.code-image {
+    position: relative;
+    float: left;
+
+    height: 280px;
+    width: 420px;
+
+    overflow: hidden;
+}
+.code-image > img {
+    height: calc(100% - 80px);
+    width: calc(100% - 140px);
+
+    margin: 40px 30px 40px 110px;
+    /* box-shadow: 0 0 30px -20px #a2a2a2; */
+    border: 3px solid #e7e7e7;
+
+    background-size: cover;
+}
+
+/* animations */
+.catalog-in {
+    animation-name: slideIn;
+    animation-duration: 350ms;
+    animation-fill-mode: forwards;
+}
+.catalog-out {
+    animation-name: slideOut;
+    animation-fill-mode: forwards;
+    animation-duration: 350ms;
+}
+@keyframes slideIn {
+    0% {right: -100%;}
+    100% {right: 0;}
+}
+@keyframes slideOut {
+    0% {
+        right: 0px;
+    }
+    100% {
+        right: -100%;
+    }
+}
+@keyframes itemMouseover {
+    0% {
+        background-color:
+    }
+}

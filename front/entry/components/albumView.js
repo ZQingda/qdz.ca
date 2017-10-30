@@ -65,7 +65,8 @@ class AlbumView extends Component {
                     console.log(res.body);
                     if (err) { console.log('HANDLE TAG ALL ERR : ' + err); }
                     this.setState({
-                        images: res.body.images
+                        images: res.body.images,
+                        album: null
                     })
                 });
         }
@@ -232,15 +233,15 @@ class AlbumView extends Component {
         //console.log(this.state.images);
         var albumid = this.state.albumid;
         var tagId = this.state.tagId;
-        var images = this.state.album.images ? this.state.album.images : this.state.images ;
+        var images = (this.state.album && this.state.album.images) ? this.state.album.images : this.state.images ;
         
         var imagePresentation = images.map((image, index) => {
             var link = image.path.substr(6);
             return (
-                <div className='imgWrap' key={index}>
-                    <img src={link} alt='cannot find' onClick={this.state.delete ? this.select : this.showImage} data-key={index}></img>
-                    <ImageEdit imageId={image._id}/>
-                </div>
+                <div className='album-image' key={index}>
+                    <img src={link} alt='cannot find' onClick={this.state.delete ? this.select : this.showImage} data-key={index}>
+                    {/* <ImageEdit imageId={image._id}/> */}
+                </img></div>
             )
         });
 
@@ -257,7 +258,7 @@ class AlbumView extends Component {
             return <Redirect push to='/albums' />
         } else {
             return (
-                <div className='ABCD'>
+                <div className='album-view album-view-in' id='album-view'>
                     
                     {false && !this.state.tagId &&
                     <AlbumMenu 
