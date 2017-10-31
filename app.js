@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var multer = require('multer');
 var mongoose = require('mongoose');
+//var vhost = require('vhost');
 
 // project parts
 var index = require('./routes/index');
@@ -18,6 +19,9 @@ var tag = require('./routes/tag');
 
 // express setup
 var app = express();
+
+//var testHost = vhost("www.qdz.ca", express.static('.'));
+//app.use(testHost);
 
 // setup mongoose connection
 var mongoDB = 'mongodb://127.0.0.1:27017';

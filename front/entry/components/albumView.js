@@ -6,6 +6,7 @@ import Lightbox from './lightbox'
 import AlbumMenu from './albumMenu'
 import ImageEdit from './imageEdit'
 
+var domain = 'http://localhost:3001/';
 
 class AlbumView extends Component {
 
@@ -43,7 +44,7 @@ class AlbumView extends Component {
         if (this.state.albumid) {
             var albumQuery = (this.state.albumId == 'all') ? {} : { albumid: this.state.albumid };
             console.log(albumQuery);
-            request.get('http://192.168.50.117:3001/album/get')
+            request.get(domain + 'album/get')
                 .query(albumQuery)
                 .end((err, res) => {
                     if (err) { console.log('HANDLE ERROR: ' + err); }
@@ -59,7 +60,7 @@ class AlbumView extends Component {
         }
         else if (this.state.tagId) {
             var tagQuery = {tagId : this.state.tagId};
-            request.get('http://192.168.50.117:3001/tag/getall')
+            request.get(domain + 'tag/getall')
                 .query(tagQuery)
                 .end((err, res) => {
                     console.log('ALBUM VIEW RES : ');
@@ -132,7 +133,7 @@ class AlbumView extends Component {
             deletionPackage.albumid = albumid;
         }
 
-        request.post('http://192.168.50.117:3001/image/delete')
+        request.post(domain + 'image/delete')
             .send(deletionPackage)
             .end((err) => {
                 if (err) { console.log('DELETE IMAGE ERROR: ' + err); }
@@ -157,7 +158,7 @@ class AlbumView extends Component {
     deleteAlbum() {
         var albumid = this.state.albumid;
         console.log(albumid);
-        request.post('http://192.168.50.117:3001/album/delete')
+        request.post(domain + 'album/delete')
             .send({ albumid: albumid })
             .end((err) => {
                 if (err) { console.log('DELETE ALBUM ERROR: ' + err); }
@@ -178,7 +179,7 @@ class AlbumView extends Component {
         var albumid = this.state.albumid;
         var newTags = this.state.newTags;
 
-        request.post('http://192.168.50.117:3001/album/addtags')
+        request.post(domain + 'album/addtags')
             .send({
                 albumid: albumid,
                 newTags: newTags
@@ -195,7 +196,7 @@ class AlbumView extends Component {
         var albumid = this.state.albumid;
 
         //console.log(e.target.dataset.tag);
-        request.post('http://192.168.50.117:3001/album/removetag')
+        request.post(domain + 'album/removetag')
             .send({
                 albumid: albumid,
                 tagid: this.state.album.tags[e.target.dataset.tag]._id

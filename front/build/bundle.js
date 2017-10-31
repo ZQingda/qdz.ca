@@ -38829,6 +38829,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var domain = 'http://localhost:3001/';
+
 	var AlbumView = function (_Component) {
 	    _inherits(AlbumView, _Component);
 
@@ -38874,7 +38876,7 @@
 	            if (this.state.albumid) {
 	                var albumQuery = this.state.albumId == 'all' ? {} : { albumid: this.state.albumid };
 	                console.log(albumQuery);
-	                _superagent2.default.get('http://192.168.50.117:3001/album/get').query(albumQuery).end(function (err, res) {
+	                _superagent2.default.get(domain + 'album/get').query(albumQuery).end(function (err, res) {
 	                    if (err) {
 	                        console.log('HANDLE ERROR: ' + err);
 	                    }
@@ -38889,7 +38891,7 @@
 	                });
 	            } else if (this.state.tagId) {
 	                var tagQuery = { tagId: this.state.tagId };
-	                _superagent2.default.get('http://192.168.50.117:3001/tag/getall').query(tagQuery).end(function (err, res) {
+	                _superagent2.default.get(domain + 'tag/getall').query(tagQuery).end(function (err, res) {
 	                    console.log('ALBUM VIEW RES : ');
 	                    console.log(res.body);
 	                    if (err) {
@@ -38972,7 +38974,7 @@
 	                deletionPackage.albumid = albumid;
 	            }
 
-	            _superagent2.default.post('http://192.168.50.117:3001/image/delete').send(deletionPackage).end(function (err) {
+	            _superagent2.default.post(domain + 'image/delete').send(deletionPackage).end(function (err) {
 	                if (err) {
 	                    console.log('DELETE IMAGE ERROR: ' + err);
 	                }
@@ -38999,7 +39001,7 @@
 	        value: function deleteAlbum() {
 	            var albumid = this.state.albumid;
 	            console.log(albumid);
-	            _superagent2.default.post('http://192.168.50.117:3001/album/delete').send({ albumid: albumid }).end(function (err) {
+	            _superagent2.default.post(domain + 'album/delete').send({ albumid: albumid }).end(function (err) {
 	                if (err) {
 	                    console.log('DELETE ALBUM ERROR: ' + err);
 	                }
@@ -39024,7 +39026,7 @@
 	            var albumid = this.state.albumid;
 	            var newTags = this.state.newTags;
 
-	            _superagent2.default.post('http://192.168.50.117:3001/album/addtags').send({
+	            _superagent2.default.post(domain + 'album/addtags').send({
 	                albumid: albumid,
 	                newTags: newTags
 	            }).end(function (err, res) {
@@ -39044,7 +39046,7 @@
 	            var albumid = this.state.albumid;
 
 	            //console.log(e.target.dataset.tag);
-	            _superagent2.default.post('http://192.168.50.117:3001/album/removetag').send({
+	            _superagent2.default.post(domain + 'album/removetag').send({
 	                albumid: albumid,
 	                tagid: this.state.album.tags[e.target.dataset.tag]._id
 	            }).end(function (err, res) {
@@ -39590,6 +39592,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var domain = 'http://localhost:3001/';
+
 	var TagView = function (_Component) {
 	    _inherits(TagView, _Component);
 
@@ -39620,7 +39624,7 @@
 	            if (this.props.location && this.props.location.state && this.props.location.state.tagId) tagQuery._id = this.props.location.state.tagId;
 	            if (this.props.tagName) tagQuery.name = this.props.tagName;
 	            console.log(tagQuery);
-	            _superagent2.default.get('http://192.168.50.117:3001/tag/get').query(tagQuery).end(function (err, res) {
+	            _superagent2.default.get(domain + 'tag/get').query(tagQuery).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
 	                }
