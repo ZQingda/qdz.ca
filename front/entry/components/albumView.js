@@ -6,7 +6,7 @@ import Lightbox from './lightbox'
 import AlbumMenu from './albumMenu'
 import ImageEdit from './imageEdit'
 
-var domain = 'http://localhost:3001/';
+var domain = 'http://138.197.142.130:3001/';
 
 class AlbumView extends Component {
 
@@ -60,7 +60,9 @@ class AlbumView extends Component {
         }
         else if (this.state.tagId) {
             var tagQuery = {tagId : this.state.tagId};
-            request.get(domain + 'tag/getall')
+            var endpoint = domain + 'tag/getall';
+            console.log('getall endpoint : ' + endpoint);
+            request.get(endpoint)
                 .query(tagQuery)
                 .end((err, res) => {
                     console.log('ALBUM VIEW RES : ');

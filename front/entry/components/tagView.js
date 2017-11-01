@@ -4,7 +4,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import AlbumView from './albumView'
 
-var domain = 'http://localhost:3001/';
+var domain = 'http://138.197.142.130:3001/';
 
 class TagView extends Component {
 
@@ -27,7 +27,9 @@ class TagView extends Component {
         if (this.props.location && this.props.location.state && this.props.location.state.tagId) tagQuery._id = this.props.location.state.tagId;
         if (this.props.tagName) tagQuery.name = this.props.tagName;
         console.log(tagQuery);
-        request.get(domain + 'tag/get')
+        var endpoint = domain + 'tag/get';
+        console.log(endpoint);
+        request.get(endpoint)
             .query(tagQuery)
             .end((err, res) => {
                 if (err) { console.log('HANDLE ERROR: ' + err); }

@@ -38829,7 +38829,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var domain = 'http://localhost:3001/';
+	var domain = 'http://138.197.142.130:3001/';
 
 	var AlbumView = function (_Component) {
 	    _inherits(AlbumView, _Component);
@@ -38891,7 +38891,9 @@
 	                });
 	            } else if (this.state.tagId) {
 	                var tagQuery = { tagId: this.state.tagId };
-	                _superagent2.default.get(domain + 'tag/getall').query(tagQuery).end(function (err, res) {
+	                var endpoint = domain + 'tag/getall';
+	                console.log('getall endpoint : ' + endpoint);
+	                _superagent2.default.get(endpoint).query(tagQuery).end(function (err, res) {
 	                    console.log('ALBUM VIEW RES : ');
 	                    console.log(res.body);
 	                    if (err) {
@@ -39592,7 +39594,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var domain = 'http://localhost:3001/';
+	var domain = 'http://138.197.142.130:3001/';
 
 	var TagView = function (_Component) {
 	    _inherits(TagView, _Component);
@@ -39624,7 +39626,9 @@
 	            if (this.props.location && this.props.location.state && this.props.location.state.tagId) tagQuery._id = this.props.location.state.tagId;
 	            if (this.props.tagName) tagQuery.name = this.props.tagName;
 	            console.log(tagQuery);
-	            _superagent2.default.get(domain + 'tag/get').query(tagQuery).end(function (err, res) {
+	            var endpoint = domain + 'tag/get';
+	            console.log(endpoint);
+	            _superagent2.default.get(endpoint).query(tagQuery).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
 	                }
