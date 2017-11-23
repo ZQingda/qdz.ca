@@ -267,7 +267,7 @@ class AlbumView extends Component {
             return (
                 <div className='album-view album-view-in' id='album-view'>
                     
-                    {false && !this.state.tagId &&
+                    {!this.state.tagId &&
                     <AlbumMenu 
                         albumid={albumid}
                         getAlbum={this.getAlbum}

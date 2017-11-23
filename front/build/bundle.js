@@ -38755,7 +38755,7 @@
 	            var _this2 = this;
 
 	            var endpoint = domain + 'album/list';
-	            /*testcomment*/
+	            /*testcommentfds*/
 	            _superagent2.default.get(endpoint).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
@@ -39152,7 +39152,7 @@
 	                return _react2.default.createElement(
 	                    'div',
 	                    { className: 'album-view album-view-in', id: 'album-view' },
-	                    false && !this.state.tagId && _react2.default.createElement(_albumMenu2.default, {
+	                    !this.state.tagId && _react2.default.createElement(_albumMenu2.default, {
 	                        albumid: albumid,
 	                        getAlbum: this.getAlbum,
 	                        deleteAlbum: this.deleteAlbum,
