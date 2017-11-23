@@ -4,7 +4,8 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import AlbumView from './albumView'
 
-var domain = 'http://138.197.142.130:3001/';
+import config from '../config';
+var domain = config.DOMAIN;
 
 class TagView extends Component {
 

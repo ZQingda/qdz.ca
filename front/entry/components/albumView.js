@@ -6,7 +6,8 @@ import Lightbox from './lightbox'
 import AlbumMenu from './albumMenu'
 import ImageEdit from './imageEdit'
 
-var domain = 'http://138.197.142.130:3001/';
+import config from '../config';
+var domain = config.DOMAIN;
 
 class AlbumView extends Component {
 
@@ -42,7 +43,7 @@ class AlbumView extends Component {
 
     getAlbum() {
         if (this.state.albumid) {
-            var albumQuery = (this.state.albumId == 'all') ? {} : { albumid: this.state.albumid };
+            var albumQuery = (this.state.albumid == 'all') ? {} : { albumid: this.state.albumid };
             console.log(albumQuery);
             request.get(domain + 'album/get')
                 .query(albumQuery)
@@ -239,6 +240,7 @@ class AlbumView extends Component {
         var albumid = this.state.albumid;
         var tagId = this.state.tagId;
         var images = (this.state.album && this.state.album.images) ? this.state.album.images : this.state.images ;
+        var tags = (this.state.album && this.state.album.tags) ? this.state.album.tags : undefined;
         
         var imagePresentation = images.map((image, index) => {
             var link = image.path.substr(6);
@@ -250,14 +252,14 @@ class AlbumView extends Component {
             )
         });
 
-        /* var tags = this.state.album.tags ? this.state.album.tags.map((tag, index) => {
+        /*var tags = this.state.album.tags ? this.state.album.tags.map((tag, index) => {
             return (
                 <div className='tagWrap' key={index}>
                     {tag.name}
                     <button onClick={this.removeTag} data-tag={index}>Delete tag</button>
                 </div>
             )
-        }) : null; */
+        }) : null;*/
 
         if (this.state.backToList) {
             return <Redirect push to='/albums' />
@@ -275,7 +277,7 @@ class AlbumView extends Component {
                         toggleDeletion={this.toggleDeletion}
                         addTags={this.addTags}
                         handleNewTagsChange={this.handleNewTagsChange}
-                        tags={this.state.album.tags ? this.state.album.tags : undefined}
+                        tags={tags}
                         removeTag={this.removeTag}
                         />
                     }

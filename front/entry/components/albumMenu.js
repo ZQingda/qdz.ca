@@ -33,7 +33,7 @@ class AlbumMenu extends Component {
                 <form onSubmit={this.props.addTags} id='newTags'>
                     <label htmlFor='albumNewTags'>New Tag(s)</label>
                     <input type='text' name='albumNewTags' id='albumNewTags' onChange={this.props.handleNewTagsChange} />
-                    <input type="submit" value="Submit" />
+                    <button type="submit" value="Submit">Submit Tag</button>
                 </form>
 
                 {tags}

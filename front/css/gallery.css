@@ -59,7 +59,7 @@
 
     overflow-x: hidden;
     overflow-y: scroll;
-    font-size: 0;
+    /* font-size: 0; */
 
     background-color: #F3F5F7;
 

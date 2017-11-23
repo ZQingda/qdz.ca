@@ -38821,6 +38821,10 @@
 
 	var _imageEdit2 = _interopRequireDefault(_imageEdit);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38829,7 +38833,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var domain = 'http://138.197.142.130:3001/';
+	var domain = _config2.default.DOMAIN;
 
 	var AlbumView = function (_Component) {
 	    _inherits(AlbumView, _Component);
@@ -38874,7 +38878,7 @@
 	            var _this2 = this;
 
 	            if (this.state.albumid) {
-	                var albumQuery = this.state.albumId == 'all' ? {} : { albumid: this.state.albumid };
+	                var albumQuery = this.state.albumid == 'all' ? {} : { albumid: this.state.albumid };
 	                console.log(albumQuery);
 	                _superagent2.default.get(domain + 'album/get').query(albumQuery).end(function (err, res) {
 	                    if (err) {
@@ -39100,6 +39104,7 @@
 	            var albumid = this.state.albumid;
 	            var tagId = this.state.tagId;
 	            var images = this.state.album && this.state.album.images ? this.state.album.images : this.state.images;
+	            var tags = this.state.album && this.state.album.tags ? this.state.album.tags : undefined;
 
 	            var imagePresentation = images.map(function (image, index) {
 	                var link = image.path.substr(6);
@@ -39110,14 +39115,14 @@
 	                );
 	            });
 
-	            /* var tags = this.state.album.tags ? this.state.album.tags.map((tag, index) => {
+	            /*var tags = this.state.album.tags ? this.state.album.tags.map((tag, index) => {
 	                return (
 	                    <div className='tagWrap' key={index}>
 	                        {tag.name}
 	                        <button onClick={this.removeTag} data-tag={index}>Delete tag</button>
 	                    </div>
 	                )
-	            }) : null; */
+	            }) : null;*/
 
 	            if (this.state.backToList) {
 	                return _react2.default.createElement(_reactRouterDom.Redirect, { push: true, to: '/albums' });
@@ -39134,7 +39139,7 @@
 	                        toggleDeletion: this.toggleDeletion,
 	                        addTags: this.addTags,
 	                        handleNewTagsChange: this.handleNewTagsChange,
-	                        tags: this.state.album.tags ? this.state.album.tags : undefined,
+	                        tags: tags,
 	                        removeTag: this.removeTag
 	                    }),
 	                    _react2.default.createElement(
@@ -39329,7 +39334,11 @@
 	                        'New Tag(s)'
 	                    ),
 	                    _react2.default.createElement('input', { type: 'text', name: 'albumNewTags', id: 'albumNewTags', onChange: this.props.handleNewTagsChange }),
-	                    _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'submit', value: 'Submit' },
+	                        'Submit Tag'
+	                    )
 	                ),
 	                tags
 	            );
@@ -39586,6 +39595,10 @@
 
 	var _albumView2 = _interopRequireDefault(_albumView);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39594,7 +39607,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var domain = 'http://138.197.142.130:3001/';
+	var domain = _config2.default.DOMAIN;
 
 	var TagView = function (_Component) {
 	    _inherits(TagView, _Component);
@@ -39703,6 +39716,19 @@
 	}(_react.Component);
 
 	exports.default = TagView;
+
+/***/ }),
+/* 571 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    DOMAIN: 'http://138.197.142.130:3001/'
+	};
 
 /***/ })
 /******/ ]);
