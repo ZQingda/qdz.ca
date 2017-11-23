@@ -9363,7 +9363,7 @@
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRouterDom.BrowserRouter,
 	    null,
-	    _react2.default.createElement(_reactRouterDom.Route, { path: '/gallery/:category', component: _App.Photos })
+	    _react2.default.createElement(_App.App, null)
 	), document.getElementById('gallery'));
 	//import './index.css';
 
