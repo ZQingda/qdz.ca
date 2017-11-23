@@ -7,7 +7,7 @@ import { App, Photos } from './App';
 //console.log('index.js!');
 ReactDOM.render((
     <BrowserRouter>
-        <Route path='/gallery/:category' component={Photos}/>
-        {/* <App /> */}
+        {/* <Route path='/gallery/:category' component={Photos}/> */}
+        <App />
     </BrowserRouter>
 ), document.getElementById('gallery'));
