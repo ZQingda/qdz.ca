@@ -35455,6 +35455,10 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35462,6 +35466,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var domain = _config2.default.DOMAIN;
 
 	var Upload = function (_Component) {
 	    _inherits(Upload, _Component);
@@ -35524,7 +35530,8 @@
 	            }
 	            console.log('=== Form created ===');*/
 
-	            _superagent2.default.post('http://192.168.50.117:3001/image/upload').send(formData).end(function (err, res) {
+	            var endpoint = domain + 'image/upload';
+	            _superagent2.default.post(endpoint).send(formData).end(function (err, res) {
 	                console.log('ended post image');
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
@@ -38580,6 +38587,10 @@
 
 	var _reactRouterDom = __webpack_require__(513);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38587,6 +38598,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var domain = _config2.default.DOMAIN;
 
 	var AlbumCreate = function (_Component) {
 	    _inherits(AlbumCreate, _Component);
@@ -38632,7 +38645,8 @@
 
 	            //console.log('ALBUM SUBMIT');
 	            e.preventDefault();
-	            _superagent2.default.post('http://192.168.50.117:3001/album/create').send({
+	            var endpoint = domain + 'album/create';
+	            _superagent2.default.post(endpoint).send({
 	                albumName: this.state.albumName,
 	                albumDesc: this.state.albumDesc,
 	                albumTags: this.state.albumTags
@@ -38703,6 +38717,10 @@
 
 	var _reactRouterDom = __webpack_require__(513);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38710,6 +38728,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var domain = _config2.default.DOMAIN;
 
 	var AlbumList = function (_Component) {
 	    _inherits(AlbumList, _Component);
@@ -38734,7 +38754,8 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _superagent2.default.get('http://192.168.50.117:3001/album/list').end(function (err, res) {
+	            var endpoint = domain + 'album/list';
+	            _superagent2.default.get(endpoint).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
 	                }
@@ -39370,6 +39391,10 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39377,6 +39402,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var domain = _config2.default.DOMAIN;
 
 	var ImageEdit = function (_Component) {
 	    _inherits(ImageEdit, _Component);
@@ -39410,7 +39437,8 @@
 	        key: 'handleEditSubmit',
 	        value: function handleEditSubmit(e) {
 	            e.preventDefault();
-	            _superagent2.default.post('http://192.168.50.117:3001/image/update').send({
+	            var endpoint = domain + 'image/update';
+	            _superagent2.default.post(endpoint).send({
 	                imageId: this.props.imageId,
 	                name: this.state.name,
 	                description: this.state.description
@@ -39491,6 +39519,10 @@
 
 	var _reactRouterDom = __webpack_require__(513);
 
+	var _config = __webpack_require__(571);
+
+	var _config2 = _interopRequireDefault(_config);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39498,6 +39530,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var domain = _config2.default.DOMAIN;
 
 	var TagList = function (_Component) {
 	    _inherits(TagList, _Component);
@@ -39522,7 +39556,8 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 
-	            _superagent2.default.get('http://192.168.50.117:3001/tag/list').end(function (err, res) {
+	            var endpoint = domain + '/tag/list';
+	            _superagent2.default.get(endpoint).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);
 	                }
