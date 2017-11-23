@@ -38755,6 +38755,7 @@
 	            var _this2 = this;
 
 	            var endpoint = domain + 'album/list';
+	            /*testcomment*/
 	            _superagent2.default.get(endpoint).end(function (err, res) {
 	                if (err) {
 	                    console.log('HANDLE ERROR: ' + err);

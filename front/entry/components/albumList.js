@@ -20,6 +20,7 @@ class AlbumList extends Component {
 
     componentDidMount() {
         var endpoint = domain + 'album/list';
+        /*testcomment*/
         request.get(endpoint)
             .end((err, res) => {
                 if (err) { console.log('HANDLE ERROR: ' + err); }
