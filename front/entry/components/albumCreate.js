@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import { Switch, Route, Link } from 'react-router-dom';
 
+import config from '../config';
+var domain = config.DOMAIN;
+
 class AlbumCreate extends Component {
 
     constructor(props) {
@@ -36,7 +39,8 @@ class AlbumCreate extends Component {
 
         //console.log('ALBUM SUBMIT');
         e.preventDefault();
-        request.post('http://192.168.50.117:3001/album/create')
+        var endpoint = domain + 'album/create';
+        request.post(endpoint)
             .send({
                 albumName: this.state.albumName,
                 albumDesc: this.state.albumDesc,

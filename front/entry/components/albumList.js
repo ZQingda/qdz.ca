@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import { Switch, Route, Link } from 'react-router-dom';
 
+import config from '../config';
+var domain = config.DOMAIN;
 
 class AlbumList extends Component {
 
@@ -17,7 +19,8 @@ class AlbumList extends Component {
     }
 
     componentDidMount() {
-        request.get('http://192.168.50.117:3001/album/list')
+        var endpoint = domain + 'album/list';
+        request.get(endpoint)
             .end((err, res) => {
                 if (err) { console.log('HANDLE ERROR: ' + err); }
                 //console.log(res.body[0]);

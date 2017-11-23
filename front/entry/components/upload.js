@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
+import config from '../config';
+var domain = config.DOMAIN;
+
 class Upload extends Component {
 
     constructor(props) {
@@ -50,7 +53,8 @@ class Upload extends Component {
         }
         console.log('=== Form created ===');*/
 
-        request.post('http://192.168.50.117:3001/image/upload')
+        var endpoint = domain + 'image/upload';
+        request.post(endpoint)
             .send(formData)
             .end((err, res) => {
                 console.log('ended post image');

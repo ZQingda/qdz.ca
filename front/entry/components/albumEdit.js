@@ -5,6 +5,8 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 import Upload from './upload'
 import Lightbox from './lightbox'
 
+import config from '../config';
+var domain = config.DOMAIN;
 
 class AlbumView extends Component {
 
@@ -48,7 +50,9 @@ class AlbumView extends Component {
             deletionPackage.albumid = albumid;
         }
 
-        request.post('http://192.168.50.117:3001/image/delete')
+        var endpoint = domain + 'image/delete';
+
+        request.post(endpoint)
             .send(deletionPackage)
             .end((err) => {
                 if (err) { console.log('DELETE IMAGE ERROR: ' + err); }
@@ -73,7 +77,8 @@ class AlbumView extends Component {
     deleteAlbum() {
         var albumid = this.props.location.state.albumid;
         console.log(albumid);
-        request.post('http://192.168.50.117:3001/album/delete')
+        var endpoint = domain + 'album/delete';
+        request.post(endpoint);
             .send({ albumid: albumid })
             .end((err) => {
                 if (err) { console.log('DELETE ALBUM ERROR: ' + err); }

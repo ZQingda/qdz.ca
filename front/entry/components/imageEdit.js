@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import request from 'superagent';
 
+import config from '../config';
+var domain = config.DOMAIN;
+
 class ImageEdit extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +27,8 @@ class ImageEdit extends Component {
 
     handleEditSubmit(e) {
         e.preventDefault();
-        request.post('http://192.168.50.117:3001/image/update')
+        var endpoint = domain + 'image/update';
+        request.post(endpoint)
             .send({
                 imageId : this.props.imageId,
                 name : this.state.name,
